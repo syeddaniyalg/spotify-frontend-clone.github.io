@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spotify - Web Player: Music For Everyone</title>
+    <link rel="icon" href="\files\icons\icon.svg">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <div class="overlay">
+
+        <div class="overlay-content" style="bottom: 0px;">
+            <span class="main-app-icon">
+                <img src="files/icons/icon.svg" alt="">
+            </span>
+            <span class="app-title">Spotify</span>
+            <span class="app-caption">A Frontend Clone By Syed Daniyal</span>
+        </div>
+       
+    </div>
+    <nav>
+        <span class="nav-icon"><img width="35" src="files\icons\icon-greyscale.svg" alt=""></span>
+        <div class="mainbar">
+            <div class="home-btn">
+                <img width="25" src="files/icons/home-inactive.svg" alt="">
+            </div>
+
+            <div class="searchbar">
+                <input type="search-text" id="search-text" class="search-text" placeholder="What do you want to play?">
+                <span class="search-icon"><img width="30" src="files/icons/search-icon.svg" alt=""></span>
+            </div>
+        </div>
+        <div class="rightbar">
+            <span>Welcome Sir!</span>
+        </div>
+    </nav>
+
+    <main>
+        <section class="panel left small-panel">
+            <span class="heading">Your Library</span>\
+            <div class="libraries">
+                
+            </div>
+        </section>
+        <section class="panel middle" id="middle-sec">
+            <div id="browse-window">
+                <div class="heading big-heading">Browse All</div>
+                <div class="middle-content">
+                    <div class="genre-content browse-content">
+                        <span class="heading">Genres</span>
+                        <div class="genre-items"></div>
+                    </div>
+
+                    <div class="artist-content browse-content">
+                        <span class="heading">Artists</span>
+                        <div class="artist-items"></div>
+                    </div>
+                </div>
+            </div>
+
+
+        </section>
+        <section class="panel right small-panel">
+
+
+        </section>
+    </main>
+
+    <footer>
+        <div class="dummy-info">
+                
+        </div>
+        <div class="player">
+            <div class="main-btns">
+                <button class="prev-btn main-btn" id="prev-btn">
+                    <img src="files/icons/prev-icon.svg" alt="">
+                </button>
+    
+                <button class="big-play-btn" id="main-play-btn">
+                    <img id="img-play-icon" src="files/icons/play-icon.svg" alt="">
+                </button>
+    
+                <button class="next-btn main-btn" id="next-btn">
+                    <img src="files/icons/next-icon.svg" alt="">
+                </button>
+    
+                <button class="repeat-btn main-btn" id="repeat-btn">
+                    <img src="files/icons/repeat-icon.svg" alt="">
+                </button>
+            </div>
+
+            <div class="timeline-panel">
+                <span class="current-time-duration" id="current-time-duration">0:00</span>
+                <input type="range" min="0" max="100" value="0" class="timeline-slider" id="timeline-slider" disabled>
+                <span class="total-time-duration" id="total-time-duration">0:00</span>
+            </div>
+        </div>
+        <div class="volume-panel">
+            <div class="volume-icon">
+                <img src="files/icons/volume-icon.svg" alt="" id="img-volume-icon">
+            </div>
+
+            <input type="range" min="0" max="100" value="100" class="volume-slider" id="volume-slider">
+        </div>
+    </footer>
+
+    <audio src="" class="current-music" id="current-music"></audio>
+    <script src="script.js"></script>
+</body>
+
+</html>

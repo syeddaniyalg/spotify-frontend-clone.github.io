@@ -1,0 +1,17 @@
+[
+    {
+        "id": 0,
+        "name":"Liked Songs",
+        "type":"playlist"
+    },
+    {
+        "id": 1,
+        "name":"Mehdi Hassan",
+        "type":"artist"
+    },
+    {
+        "id":2,
+        "name":"Sufi Music",
+        "type":"genre"
+    }
+]

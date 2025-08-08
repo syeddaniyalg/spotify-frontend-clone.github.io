@@ -1,0 +1,542 @@
+[
+    {
+        "id": 0,
+        "title": "Blinding Lights",
+        "genre": "English Pop",
+        "language": "English",
+        "artist": "The Weeknd",
+        "duration": "03:23",
+        "playlist": "Liked Songs"
+    },
+    {
+        "id": 1,
+        "title": "Levitating",
+        "genre": "English Pop",
+        "language": "English",
+        "artist": "Dua Lipa",
+        "duration": "03:40",
+        "playlist": ""
+    },
+    {
+        "id": 2,
+        "title": "Watermelon Sugar",
+        "genre": "English Pop",
+        "language": "English",
+        "artist": "Harry Styles",
+        "duration": "02:53",
+        "playlist": ""
+    },
+    {
+        "id": 3,
+        "title": "Don't Start Now",
+        "genre": "English Pop",
+        "language": "English",
+        "artist": "Dua Lipa",
+        "duration": "03:05",
+        "playlist": "Liked Songs"
+    },
+    {
+        "id": 4,
+        "title": "Stay",
+        "genre": "English Pop",
+        "language": "English",
+        "artist": "The Kid LAROI,Justin Bieber",
+        "duration": "02:21",
+        "playlist": ""
+    },
+    {
+        "id": 5,
+        "title": "Bad Habits",
+        "genre": "English Pop",
+        "language": "English",
+        "artist": "Ed Sheeran",
+        "duration": "03:51",
+        "playlist": ""
+    },
+    {
+        "id": 6,
+        "title": "Save Your Tears",
+        "genre": "English Pop",
+        "language": "English",
+        "artist": "The Weeknd",
+        "duration": "03:36",
+        "playlist": "Liked Songs"
+    },
+    {
+        "id": 7,
+        "title": "Dynamite",
+        "genre": "English Pop",
+        "language": "English",
+        "artist": "BTS",
+        "duration": "03:20",
+        "playlist": ""
+    },
+    {
+        "id": 8,
+        "title": "Shivers",
+        "genre": "English Pop",
+        "language": "English",
+        "artist": "Ed Sheeran",
+        "duration": "03:28",
+        "playlist": ""
+    },
+    {
+        "id": 9,
+        "title": "Peaches",
+        "genre": "English Pop",
+        "language": "English",
+        "artist": "Justin Bieber",
+        "duration": "03:17",
+        "playlist": "Liked Songs"
+    },
+    {
+        "id": 10,
+        "title": "Bohemian Rhapsody",
+        "genre": "English Rock",
+        "language": "English",
+        "artist": "Queen",
+        "duration": "05:59",
+        "playlist": ""
+    },
+    {
+        "id": 11,
+        "title": "Sweet Child O' Mine",
+        "genre": "English Rock",
+        "language": "English",
+        "artist": "Guns N' Roses",
+        "duration": "06:02",
+        "playlist": "Liked Songs"
+    },
+    {
+        "id": 12,
+        "title": "Smells Like Teen Spirit",
+        "genre": "English Rock",
+        "language": "English",
+        "artist": "Nirvana",
+        "duration": "04:38",
+        "playlist": ""
+    },
+    {
+        "id": 13,
+        "title": "Hotel California",
+        "genre": "English Rock",
+        "language": "English",
+        "artist": "Eagles",
+        "duration": "06:31",
+        "playlist": "Liked Songs"
+    },
+    {
+        "id": 14,
+        "title": "Wonderwall",
+        "genre": "English Rock",
+        "language": "English",
+        "artist": "Oasis",
+        "duration": "04:18",
+        "playlist": ""
+    },
+    {
+        "id": 15,
+        "title": "Highway to Hell",
+        "genre": "English Rock",
+        "language": "English",
+        "artist": "AC/DC",
+        "duration": "03:27",
+        "playlist": ""
+    },
+    {
+        "id": 16,
+        "title": "Stairway to Heaven",
+        "genre": "English Rock",
+        "language": "English",
+        "artist": "Led Zeppelin",
+        "duration": "08:02",
+        "playlist": "Liked Songs"
+    },
+    {
+        "id": 17,
+        "title": "November Rain",
+        "genre": "English Rock",
+        "language": "English",
+        "artist": "Guns N' Roses",
+        "duration": "08:55",
+        "playlist": ""
+    },
+    {
+        "id": 18,
+        "title": "Back in Black",
+        "genre": "English Rock",
+        "language": "English",
+        "artist": "AC/DC",
+        "duration": "04:16",
+        "playlist": ""
+    },
+    {
+        "id": 19,
+        "title": "Paranoid",
+        "genre": "English Rock",
+        "language": "English",
+        "artist": "Black Sabbath",
+        "duration": "02:48",
+        "playlist": "Liked Songs"
+    },
+    {
+        "id": 20,
+        "title": "Pasoori Nu",
+        "genre": "Pakistani Pop",
+        "language": "Punjabi",
+        "artist": "Ali Sethi",
+        "duration": "04:36",
+        "playlist": ""
+    },
+    {
+        "id": 21,
+        "title": "Afreen Afreen",
+        "genre": "Pakistani Pop",
+        "language": "Urdu",
+        "artist": "Rahat Fateh Ali Khan,Momina Mustehsan",
+        "duration": "06:44",
+        "playlist": "Liked Songs"
+    },
+    {
+        "id": 22,
+        "title": "Na Tutteya Ve",
+        "genre": "Pakistani Pop",
+        "language": "Punjabi",
+        "artist": "Bilal Saeed",
+        "duration": "04:47",
+        "playlist": ""
+    },
+    {
+        "id": 23,
+        "title": "Sajni",
+        "genre": "Pakistani Pop",
+        "language": "Urdu",
+        "artist": "Strings",
+        "duration": "05:15",
+        "playlist": ""
+    },
+    {
+        "id": 24,
+        "title": "Bewafa",
+        "genre": "Pakistani Pop",
+        "language": "Urdu",
+        "artist": "Imran Khan",
+        "duration": "03:46",
+        "playlist": "Liked Songs"
+    },
+    {
+        "id": 25,
+        "title": "Kaif-us-Suroor",
+        "genre": "Pakistani Pop",
+        "language": "Urdu",
+        "artist": "Aima Baig",
+        "duration": "04:13",
+        "playlist": ""
+    },
+    {
+        "id": 26,
+        "title": "Laaree Chootee",
+        "genre": "Pakistani Pop",
+        "language": "Punjabi",
+        "artist": "Call",
+        "duration": "03:59",
+        "playlist": ""
+    },
+    {
+        "id": 27,
+        "title": "Dil Dil Pakistan",
+        "genre": "Pakistani Pop",
+        "language": "Urdu",
+        "artist": "Vital Signs",
+        "duration": "04:41",
+        "playlist": "Liked Songs"
+    },
+    {
+        "id": 28,
+        "title": "Jal Pari",
+        "genre": "Pakistani Pop",
+        "language": "Urdu",
+        "artist": "Atif Aslam",
+        "duration": "07:04",
+        "playlist": ""
+    },
+    {
+        "id": 29,
+        "title": "Nach Punjaban",
+        "genre": "Pakistani Pop",
+        "language": "Punjabi",
+        "artist": "Abrar-ul-Haq",
+        "duration": "04:30",
+        "playlist": ""
+    },
+    {
+        "id": 30,
+        "title": "Allah Hoo",
+        "genre": "Sufi Music",
+        "language": "Urdu",
+        "artist": "Nusrat Fateh Ali Khan",
+        "duration": "14:23",
+        "playlist": "Liked Songs"
+    },
+    {
+        "id": 31,
+        "title": "Tere Ishq Nachaya",
+        "genre": "Sufi Music",
+        "language": "Punjabi",
+        "artist": "Abida Parveen",
+        "duration": "12:03",
+        "playlist": ""
+    },
+    {
+        "id": 32,
+        "title": "Chaap Tilak",
+        "genre": "Sufi Music",
+        "language": "Urdu",
+        "artist": "Abida Parveen",
+        "duration": "09:02",
+        "playlist": ""
+    },
+    {
+        "id": 33,
+        "title": "Mast Qalandar",
+        "genre": "Sufi Music",
+        "language": "Punjabi",
+        "artist": "Sabri Brothers",
+        "duration": "14:52",
+        "playlist": "Liked Songs"
+    },
+    {
+        "id": 34,
+        "title": "Dama Dam Mast Qalandar",
+        "genre": "Sufi Music",
+        "language": "Sindhi",
+        "artist": "Nusrat Fateh Ali Khan",
+        "duration": "14:20",
+        "playlist": ""
+    },
+    {
+        "id": 35,
+        "title": "Husn-e-Haqiqi",
+        "genre": "Sufi Music",
+        "language": "Urdu",
+        "artist": "Arieb Azhar",
+        "duration": "05:37",
+        "playlist": ""
+    },
+    {
+        "id": 36,
+        "title": "Kali Kali Zulfon Ke",
+        "genre": "Sufi Music",
+        "language": "Urdu",
+        "artist": "Nusrat Fateh Ali Khan",
+        "duration": "14:19",
+        "playlist": "Liked Songs"
+    },
+    {
+        "id": 37,
+        "title": "Yaar Ko Humne",
+        "genre": "Sufi Music",
+        "language": "Urdu",
+        "artist": "Abida Parveen",
+        "duration": "06:16",
+        "playlist": ""
+    },
+    {
+        "id": 38,
+        "title": "Ali Maula",
+        "genre": "Sufi Music",
+        "language": "Urdu",
+        "artist": "Nusrat Fateh Ali Khan",
+        "duration": "26:37",
+        "playlist": ""
+    },
+    {
+        "id": 39,
+        "title": "Ranjhy Bina",
+        "genre": "Sufi Music",
+        "language": "Urdu",
+        "artist": "Abida Parveen",
+        "duration": "04:05",
+        "playlist": ""
+    },
+    {
+        "id": 40,
+        "title": "Aaj Jane Ki Zid Na Karo",
+        "genre": "Urdu Ghazal",
+        "language": "Urdu",
+        "artist": "Farida Khanum",
+        "duration": "07:11",
+        "playlist": "Liked Songs"
+    },
+    {
+        "id": 41,
+        "title": "Dil-e-Nadaan",
+        "genre": "Urdu Ghazal",
+        "language": "Urdu",
+        "artist": "Mehdi Hassan",
+        "duration": "09:13",
+        "playlist": ""
+    },
+    {
+        "id": 42,
+        "title": "Ranjish Hi Sahi",
+        "genre": "Urdu Ghazal",
+        "language": "Urdu",
+        "artist": "Mehdi Hassan",
+        "duration": "12:12",
+        "playlist": ""
+    },
+    {
+        "id": 43,
+        "title": "Wo Jo Hum Mein Tum Mein Qarar Tha",
+        "genre": "Urdu Ghazal",
+        "language": "Urdu",
+        "artist": "Mehdi Hassan",
+        "duration": "05:33",
+        "playlist": "Liked Songs"
+    },
+    {
+        "id": 44,
+        "title": "Mujhe Tum Nazar Se",
+        "genre": "Urdu Ghazal",
+        "language": "Urdu",
+        "artist": "Mehdi Hassan",
+        "duration": "06:21",
+        "playlist": ""
+    },
+    {
+        "id": 45,
+        "title": "Chupke Chupke Raat Din",
+        "genre": "Urdu Ghazal",
+        "language": "Urdu",
+        "artist": "Ghulam Ali",
+        "duration": "07:56",
+        "playlist": ""
+    },
+    {
+        "id": 46,
+        "title": "Hungama Hai Kyon Barpa",
+        "genre": "Urdu Ghazal",
+        "language": "Urdu",
+        "artist": "Ghulam Ali",
+        "duration": "08:34",
+        "playlist": ""
+    },
+    {
+        "id": 47,
+        "title": "Shola Tha Jal Bujha Hoon",
+        "genre": "Urdu Ghazal",
+        "language": "Urdu",
+        "artist": "Mehdi Hassan",
+        "duration": "12:17",
+        "playlist": "Liked Songs"
+    },
+    {
+        "id": 48,
+        "title": "Yeh Arzoo Thi Tujhe Gul Ke",
+        "genre": "Urdu Ghazal",
+        "language": "Urdu",
+        "artist": "Abida Parveen",
+        "duration": "10:00",
+        "playlist": ""
+    },
+    {
+        "id": 49,
+        "title": "Insha-ji Utho Ab Kooch Karo",
+        "genre": "Urdu Ghazal",
+        "language": "Urdu",
+        "artist": "Ustad Amanat Ali Khan",
+        "duration": "06:17",
+        "playlist": ""
+    },
+    {
+        "id": 50,
+        "title": "Laung Laachi",
+        "genre": "Punjabi Pop",
+        "language": "Punjabi",
+        "artist": "Mannat Noor",
+        "duration": "03:04",
+        "playlist": "Liked Songs"
+    },
+    {
+        "id": 51,
+        "title": "Sira E Hou",
+        "genre": "Punjabi Pop",
+        "language": "Punjabi",
+        "artist": "Amrit Maan",
+        "duration": "04:40",
+        "playlist": ""
+    },
+    {
+        "id": 52,
+        "title": "Jhanjar",
+        "genre": "Punjabi Pop",
+        "language": "Punjabi",
+        "artist": "Karan Aujla",
+        "duration": "04:23",
+        "playlist": ""
+    },
+    {
+        "id": 53,
+        "title": "Qismat",
+        "genre": "Punjabi Pop",
+        "language": "Punjabi",
+        "artist": "Ammy Virk",
+        "duration": "04:23",
+        "playlist": ""
+    },
+    {
+        "id": 54,
+        "title": "Brown Munde",
+        "genre": "Punjabi Pop",
+        "language": "Punjabi",
+        "artist": "AP Dhillon",
+        "duration": "04:27",
+        "playlist": "Liked Songs"
+    },
+    {
+        "id": 55,
+        "title": "Tum Hi Ho",
+        "genre": "Hindi",
+        "language": "Hindi",
+        "artist": "Arijit Singh",
+        "duration": "04:27",
+        "playlist": ""
+    },
+    {
+        "id": 56,
+        "title": "Channa Mereya",
+        "genre": "Hindi",
+        "language": "Hindi",
+        "artist": "Arijit Singh",
+        "duration": "05:45",
+        "playlist": ""
+    },
+    {
+        "id": 57,
+        "title": "Kal Ho Naa Ho",
+        "genre": "Hindi",
+        "language": "Hindi",
+        "artist": "Sonu Nigam",
+        "duration": "05:22",
+        "playlist": "Liked Songs"
+    },
+    {
+        "id": 58,
+        "title": "Gerua",
+        "genre": "Hindi",
+        "language": "Hindi",
+        "artist": "Arijit Singh, Antara Mitra",
+        "duration": "04:47",
+        "playlist": ""
+    },
+    {
+        "id": 59,
+        "title": "Raabta",
+        "genre": "Hindi",
+        "language": "Hindi",
+        "artist": "Arijit Singh",
+        "duration": "03:53",
+        "playlist": ""
+    }
+]
