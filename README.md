@@ -42,10 +42,10 @@ It is purely a **client-side application** intended for **educational and portfo
 ---
 
 ## 📂 Project Structure
-index.html # Main HTML file
-style.css # Stylesheet
-script.js # JavaScript logic
-files/ # Local media, icons, images and JSON data
+- index.html — Main HTML file
+- style.css — Stylesheet
+- script.js — JavaScript logic
+- files/ — Local media, icons, images and JSON data
 
 
 ---
