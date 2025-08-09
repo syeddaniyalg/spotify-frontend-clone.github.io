@@ -1,3 +1,4 @@
+// GLOBAL VARIABLES
 let songs, artists, genres, playlists
 let is_song_played = false
 let is_library_added = false
@@ -16,6 +17,8 @@ let current_song_element = undefined
 let current_list = ""
 let selected_lib = -1
 
+// BASIC HELPER FUNCTIONS
+
 async function wait(ms) {
     return new Promise((resolve) => setTimeout(resolve, ms));
 }
@@ -26,7 +29,6 @@ async function loadJSON(path) {
             .then(response => response.text())
             .then(text => {
                 const data = JSON.parse(text);
-                console.log(data);
                 resolve(data)
             });
     })
@@ -39,31 +41,62 @@ async function loadData() {
     libraries = await loadJSON("files/data/libraries.json")
 }
 
-function updateDuration() {
-    let minutes_part = Math.floor(current_duration / 60)
-    let seconds_part = Math.floor(current_duration % 60)
+// MUSIC HANDLING FUNCTIONS
+function updateVolume() {
+    if (current_song != undefined) {
+        document.getElementById('current-music').volume = parseInt(current_volume) / 100
+    }
+}
+
+function syncVolume(with_val) {
+    volume_slider = document.getElementById('volume-slider')
+    volume_icon = document.getElementById('img-volume-icon')
+
+    volume_slider.value = with_val
+
+    if (with_val == 0) {
+        volume_icon.src = `files/icons/mute-icon.svg`
+        is_muted = true;
+    }
+    else {
+        volume_icon.src = `files/icons/volume-icon.svg`
+        is_muted = false;
+    }
+    current_volume = with_val
+    volume_slider.style.background = `linear-gradient(90deg, #08c240 ${with_val}%, white ${with_val}%)`
+    updateVolume()
+}
+
+function syncDuration(with_val) {
+    current_duration = with_val
+
+    let minutes_part = Math.floor(with_val / 60)
+    let seconds_part = Math.floor(with_val % 60)
     document.getElementById('current-time-duration').textContent = `${minutes_part}:${(seconds_part < 10) ? `0${seconds_part}` : `${seconds_part}`}`
 
-    document.getElementById('timeline-slider').value = (current_duration / total_duration) * 100
+    document.getElementById('timeline-slider').value = (with_val / total_duration) * 100
     timeline_slider = document.getElementById('timeline-slider')
     document.getElementById('timeline-slider').style.background = `linear-gradient(90deg, #08c240 ${timeline_slider.value}%, white ${timeline_slider.value}%)`
 }
 
-function continueSong() {
-    document.getElementById('current-music').remove()
+function updateSongDuration(with_val) {
+    document.getElementById('current-music').currentTime = with_val
+}
 
-    document.querySelector('body').insertAdjacentHTML('beforeend', `<audio id="current-music" src="files/media/songs/song-${current_song['id']}.mp3"></audio>"`)
-    console.log(document.getElementById('current-music'))
-    document.getElementById('current-music').currentTime = current_duration
+
+function playSong() {
+    document.getElementById('current-music').pause()
+    document.getElementById('current-music').src = `files/media/songs/song-${current_song['id']}.mp3`
+    updateSongDuration(current_duration)
     updateVolume()
+
     document.getElementById('current-music').play()
 
     clearInterval(timeline_interval)
 
     timeline_interval = setInterval(() => {
         let new_current_time = document.getElementById('current-music').currentTime
-        current_duration = new_current_time
-        updateDuration()
+        syncDuration(new_current_time)
     }, 1000);
 
     document.getElementById('current-music').addEventListener('ended', e => {
@@ -71,26 +104,88 @@ function continueSong() {
             playNext()
         }
         else {
-            current_duration = 0;
-            continueSong()
+            syncDuration(0)
+            updateSongDuration(0)
+            playSong()
         }
     })
+
+    is_song_played = true;
 }
 
 function pauseSong() {
-    console.log(timeline_interval)
     clearInterval(timeline_interval)
     document.getElementById('current-music').pause()
+    is_song_played = false;
 }
 
-function updateVolume() {
-    if (current_song != undefined) {
-        document.getElementById('current-music').volume = parseInt(current_volume) / 100
+function shiftSong(index) {
+    syncDuration(0)
+    updateSongDuration(0)
+
+    current_song = current_songs[index]
+
+    let current_artist_names = current_song['artist'].split(',')
+    let current_artist_name = current_artist_names[current_artist_names.length - 1]
+
+    current_artist = artists.find(artist => artist['name'] === current_artist_name)
+    current_song_element = document.getElementById(`song-${index}`)
+
+    let old_id = hovered_song_id
+    hovered_song_id = index + 1
+
+    changeSongHover(old_id, hovered_song_id)
+
+    loadSong(false)
+}
+
+function playNext() {
+    if (current_song == undefined) {
+        return
+    }
+
+    let current_index = current_songs.indexOf(current_song)
+    let new_index = current_index + 1
+
+    if (new_index >= current_songs.length) {
+        new_index = 0
+    }
+
+    shiftSong(new_index)
+}
+
+function playPrev() {
+    if (current_song == undefined) {
+        return
+    }
+
+    let current_index = current_songs.indexOf(current_song)
+    let new_index = current_index - 1
+    if (new_index <= -1 || new_index >= current_songs.length) {
+        new_index = current_songs.length - 1
+    }
+
+    shiftSong(new_index)
+}
+
+
+// GUI DOM OBJECTS LOADING AND MODIFICATION FUNCTIONS
+
+function changeSongHover(old_id, new_id) {
+    if (document.getElementById('browse-window').hidden === true) {
+        if (document.getElementById(`song-${old_id}`) !== null) {
+            document.getElementById(`song-${old_id}`).closest('.song-item').style.background = "none"
+            document.getElementById(`song-${old_id}`).querySelector('.song-title-heading').style.color = "var(--primary-font-color)"
+        }
+    
+        document.getElementById(`song-${new_id}`).closest('.song-item').style.backgroundColor = "#313131"
+        document.getElementById(`song-${new_id}`).closest('.song-item').querySelector('.song-title-heading').style.color = "#08c240"
     }
 }
 
 function loadSong(from_gui = true) {
-
+    document.querySelector('.right').style.display = "flex"
+    document.querySelector('.right').style['flex-direction'] = "column"
     document.querySelector('.right').innerHTML = ""
     if (from_gui) {
         hovered_song_id = current_song_element.closest('.song-item').querySelector('.song-number').textContent
@@ -158,49 +253,11 @@ function loadSong(from_gui = true) {
 
     total_duration = (parseInt(current_song['duration'].slice(0, current_song['duration'].search(':'))) * 60) + parseInt(current_song['duration'].slice(current_song['duration'].search(":") + 1, current_song['duration'].length))
 
-    current_duration = 0;
-    updateDuration()
+    syncDuration(0)
     if (is_song_played) {
-        continueSong()
+        playSong()
     }
 }
-
-function playNext() {
-    if (current_song == undefined) {
-        return
-    }
-
-
-    pauseSong()
-    console.log(current_songs)
-    let current_index = current_songs.indexOf(current_song)
-    let new_index = current_index + 1
-    if (new_index >= current_songs.length) {
-        new_index = 0
-    }
-
-    current_duration = 0;
-    current_song = current_songs[new_index]
-    let current_artist_names = current_song['artist'].split(',')
-    let current_artist_name = current_artist_names[current_artist_names.length - 1]
-    current_artist = artists.find(artist => artist['name'] === current_artist_name)
-    current_song_element = document.getElementById(`song-${new_index}`)
-
-    let old_id = hovered_song_id
-    hovered_song_id = new_index + 1
-
-    if (document.getElementById('browse-window').hidden === true) {
-        if (document.getElementById(`song-${old_id}`)) {
-            document.getElementById(`song-${old_id}`).closest('.song-item').style.background = "none"
-            document.getElementById(`song-${old_id}`).querySelector('.song-title-heading').style.color = "var(--primary-font-color)"
-        }
-        document.getElementById(`song-${hovered_song_id}`).closest('.song-item').style.backgroundColor = "#313131"
-        document.getElementById(`song-${hovered_song_id}`).closest('.song-item').querySelector('.song-title-heading').style.color = "#08c240"
-    }
-
-    loadSong(false)
-}
-
 
 function loadSongContent(target_element, type, library = false) {
 
@@ -291,18 +348,11 @@ function loadSongContent(target_element, type, library = false) {
         item.addEventListener('click', (e) => {
             current_song_element = e.target
 
-            if (document.getElementById('browse-window').hidden === true) {
-                if (hovered_song_id != -1) {
-                    if (document.getElementById(`song-${hovered_song_id}`)) {
-                        document.getElementById(`song-${hovered_song_id}`).closest('.song-item').style.background = "none"
-                        document.getElementById(`song-${hovered_song_id}`).querySelector('.song-title-heading').style.color = "var(--primary-font-color)"
-                    }
-                }
+            let old_id = hovered_song_id
+            let current_song_id = current_song_element.closest('.song-item').id
+            hovered_song_id = current_song_id.slice(current_song_id.search('-') + 1, current_song_id.length)
 
-                current_song_element.closest('.song-item').style.backgroundColor = "#313131"
-                current_song_element.closest('.song-item').querySelector('.song-title-heading').style.color = "#08c240"
-            }
-
+            changeSongHover(old_id, hovered_song_id)
             loadSong()
         })
     })
@@ -346,65 +396,169 @@ function loadLibraries() {
         document.querySelector(".libraries").insertAdjacentHTML('beforeend', lib_item)
         count++
     }
+
+    document.querySelectorAll('.library-card').forEach(lib => {
+        lib.addEventListener('click', e => {
+            document.getElementById('browse-window').hidden = true
+            current_songs = []
+
+            if (document.getElementById('songs-window')) {
+                document.getElementById('songs-window').remove()
+            }
+
+            if (selected_lib != -1) {
+                document.getElementById(`lib-${selected_lib}`).style.background = "None"
+                document.getElementById(`lib-${selected_lib}`).querySelector('.library-card-title').style.color = "var(--primary-font-color)"
+
+            }
+
+            let curr_lib = e.target.closest('.library-card')
+            selected_lib = curr_lib.id.slice(curr_lib.id.search('-') + 1, curr_lib.length)
+            curr_lib.style.backgroundColor = "#313131"
+            curr_lib.querySelector('.library-card-title').style.color = "#08c240"
+    
+            loadSongContent(curr_lib, `${curr_lib.querySelector('.library-card-caption').textContent.toLowerCase()}`, true)
+        })
+    })
 }
 
-document.querySelector('.search-icon').addEventListener('click', () => {
-    document.querySelector('.search-text').focus()
-})
-
-async function loadOverlay() 
+function loadMainBody()
 {
-    console.log("waiting...")
-    await wait(3000)
-    console.log("waited...")
-    document.querySelector('.overlay-content').style.bottom = "100px"
+    let body_element = `<nav>
+        <span class="nav-icon"><img width="35" src="files/icons/icon-greyscale.svg" alt=""></span>
+        <div class="mainbar">
+            <div class="home-btn">
+                <img width="25" src="files/icons/home-inactive.svg" alt="">
+            </div>
+
+            <div class="searchbar">
+                <input type="search-text" id="search-text" class="search-text" placeholder="What do you want to play?">
+                <span class="search-icon"><img width="30" src="files/icons/search-icon.svg" alt=""></span>
+            </div>
+        </div>
+        <div class="rightbar">
+            <span>Welcome Sir!</span>
+        </div>
+    </nav>
+
+    <main>
+        <section class="panel left small-panel">
+            <span class="heading">Your Library</span>
+            <div class="libraries">
+                
+            </div>
+        </section>
+        <section class="panel middle" id="middle-sec">
+            <div id="browse-window">
+                <div class="heading big-heading">Browse All</div>
+                <div class="middle-content">
+                    <div class="genre-content browse-content">
+                        <span class="heading">Genres</span>
+                        <div class="genre-items"></div>
+                    </div>
+
+                    <div class="artist-content browse-content">
+                        <span class="heading">Artists</span>
+                        <div class="artist-items"></div>
+                    </div>
+                </div>
+            </div>
+
+
+        </section> 
+        <section class="panel right small-panel">
+
+
+        </section>
+    </main>
+
+    <footer>
+        <div class="dummy-info">
+                
+        </div>
+        <div class="player">
+            <div class="main-btns">
+                <button class="prev-btn main-btn" id="prev-btn">
+                    <img src="files/icons/prev-icon.svg" alt="">
+                </button>
     
-    if (localStorage.getItem('spotify-name') !== null)
-    {
-        document.querySelector('.overlay').insertAdjacentHTML('beforeend',`<span class="welcome-text" style="position: relative; bottom: 80px; text-align: center">
+                <button class="big-play-btn" id="main-play-btn">
+                    <img id="img-play-icon" src="files/icons/play-icon.svg" alt="">
+                </button>
+    
+                <button class="next-btn main-btn" id="next-btn">
+                    <img src="files/icons/next-icon.svg" alt="">
+                </button>
+    
+                <button class="repeat-btn main-btn" id="repeat-btn">
+                    <img src="files/icons/repeat-icon.svg" alt="">
+                </button>
+            </div>
+
+            <div class="timeline-panel">
+                <span class="current-time-duration" id="current-time-duration">0:00</span>
+                <input type="range" min="0" max="100" value="0" class="timeline-slider" id="timeline-slider" disabled>
+                <span class="total-time-duration" id="total-time-duration">0:00</span>
+            </div>
+        </div>
+        <div class="volume-panel">
+            <div class="volume-icon">
+                <img src="files/icons/volume-icon.svg" alt="" id="img-volume-icon">
+            </div>
+
+            <input type="range" min="0" max="100" value="100" class="volume-slider" id="volume-slider">
+        </div>
+    </footer>`
+
+    document.body.insertAdjacentHTML('afterbegin', body_element)
+}
+
+async function loadOverlay() {
+    await wait(3000)
+    document.querySelector('.overlay-content').style.bottom = "100px"
+
+    if (localStorage.getItem('spotify-name') !== null) {
+        document.querySelector('.overlay').insertAdjacentHTML('beforeend', `<span class="welcome-text" style="position: relative; bottom: 80px; text-align: center">
             <span style="font-size: 50px;">Welcome </span>
             <span style="color: #08c240; font-size: 50px;">${localStorage.getItem('spotify-name')}</span>
             <span style="font-size: 50px;">!</span>
         </span>`)
 
-        await wait(1000)
-        document.querySelector('.overlay').classList.add('.fade-overlay')
-        await wait(2000)
+        await wait(3000)
+        document.querySelector('.overlay').classList.add('fade-overlay')
+        await wait(1500)
         document.querySelector('.overlay').remove()
     }
-    else
-    {
-        document.querySelector('.overlay').insertAdjacentHTML('beforeend',`<div class="input-box">
+    else {
+        document.querySelector('.overlay').insertAdjacentHTML('beforeend', `<div class="input-box">
             <input type="text" class="user-name" id="user-name" placeholder="Enter your name">
             <button class="start-spotify-button" id="start-spotify-button">Start</button>
         </div>`)
 
-        document.getElementById('user-name').addEventListener('input',e=>{
+        document.getElementById('user-name').addEventListener('input', e => {
             document.getElementById('user-name').classList.remove('error-text')
         })
-        
 
-        document.getElementById('start-spotify-button').addEventListener('click',e=>{
+
+        document.getElementById('start-spotify-button').addEventListener('click', e => {
             let input_box = document.getElementById('user-name')
-            if (input_box.value === "")
-            {
+            if (input_box.value === "") {
                 input_box.classList.add('error-text')
                 return;
             }
-            
-            localStorage.setItem('spotify-name', input_box.value)
 
+            localStorage.setItem('spotify-name', input_box.value)
+            document.querySelector('.input-box').classList.add('fade-overlay')
             document.querySelector('nav .rightbar span').innerHTML = "Welcome " + `<span style="color: #08c240">${localStorage.getItem('spotify-name')}!</span>`
             document.querySelector('.overlay').remove()
-            
+
         })
-    }    
+    }
+
+
 }
 
-async function main() {
-    loadOverlay()
-
-    console.log(localStorage.getItem('spotify-name'))
+function loadDummyItems() {
     document.querySelector('nav .rightbar span').innerHTML = "Welcome " + `<span style="color: #08c240">${localStorage.getItem('spotify-name')}!</span>`
     for (i = 0; i < 5; i++) {
         document.querySelector('.genre-items').insertAdjacentHTML("beforeend", `<div class="genre-item">
@@ -420,10 +574,9 @@ async function main() {
                     </div>`)
     }
 
-    console.log("Loading...")
-    await loadData()
-    console.log("Loaded Data...")
+}
 
+function loadBrowseWindow() {
     document.querySelectorAll('.genre-item').forEach((e) => {
         e.remove();
     })
@@ -431,6 +584,7 @@ async function main() {
     document.querySelectorAll('.artist-item').forEach((e) => {
         e.remove();
     })
+
 
     for (genre of genres) {
         let genre_id = genre['id']
@@ -480,63 +634,43 @@ async function main() {
             loadSongContent(e.target, 'artist')
         })
     })
+}
 
+// EVENT BINDING FUNCTIONS
+
+function bindBasicUIEvents() {
     document.querySelector(".home-btn").addEventListener('click', (e) => {
-        document.getElementById('songs-window').remove()
+        if (document.getElementById('songs-window')) document.getElementById('songs-window').remove()
+
         document.getElementById('browse-window').hidden = false
+
         if (selected_lib != -1) {
             document.getElementById(`lib-${selected_lib}`).style.background = "None"
             document.getElementById(`lib-${selected_lib}`).querySelector('.library-card-title').style.color = "var(--primary-font-color)"
         }
     })
 
+
     document.getElementById('volume-slider').addEventListener('input', (e) => {
-        volume_slider = document.getElementById('volume-slider')
-
-        if (volume_slider.value == 0) {
-            document.getElementById('img-volume-icon').src = `files/icons/mute-icon.svg`
-            is_muted = true;
-        }
-        else {
-            document.getElementById('img-volume-icon').src = `files/icons/volume-icon.svg`
-            is_muted = false;
-        }
-
-        current_volume = volume_slider.value
-        updateVolume()
-
-        volume_slider.style.background = `linear-gradient(90deg, #08c240 ${volume_slider.value}%, white ${volume_slider.value}%)`
-    })
-
-    document.getElementById('timeline-slider').addEventListener('input', (e) => {
-        timeline_slider = document.getElementById('timeline-slider')
-
-        current_duration = (parseInt(timeline_slider.value) / 100) * total_duration
-
-        updateDuration()
-
-        if (is_song_played) {
-            continueSong()
-        }
+        curr_volume_value = document.getElementById('volume-slider').value
+        syncVolume(curr_volume_value)
     })
 
     document.querySelector('.volume-icon').addEventListener('click', (e) => {
         if (is_muted) {
-            document.getElementById('img-volume-icon').src = `files/icons/volume-icon.svg`
-            volume_slider = document.getElementById('volume-slider')
-            volume_slider.value = 5
-            volume_slider.style.background = `linear-gradient(90deg, #08c240 ${5}%, white ${5}%)`
+            syncVolume(5)
         }
         else {
-            document.getElementById('img-volume-icon').src = `files/icons/mute-icon.svg`
-            volume_slider = document.getElementById('volume-slider')
-            volume_slider.value = 0
-            volume_slider.style.background = `linear-gradient(90deg, #08c240 ${0}%, white ${0}%)`
+            syncVolume(0)
         }
+    })
 
-        current_volume = volume_slider.value
-        updateVolume()
-        is_muted = !is_muted
+    document.getElementById('timeline-slider').addEventListener('input', (e) => {
+        timeline_slider = document.getElementById('timeline-slider')
+        curr_duration_val = (parseInt(timeline_slider.value) / 100) * total_duration
+
+        syncDuration(curr_duration_val)
+        updateSongDuration(curr_duration_val)
     })
 
     document.getElementById('main-play-btn').addEventListener('click', (e) => {
@@ -550,10 +684,8 @@ async function main() {
         }
         else {
             document.getElementById('main-play-btn').querySelector("#img-play-icon").src = `files/icons/pause-icon.svg`
-            continueSong()
+            playSong()
         }
-
-        is_song_played = !is_song_played
     })
 
     document.getElementById('repeat-btn').addEventListener('click', e => {
@@ -575,69 +707,28 @@ async function main() {
     })
 
     document.getElementById('prev-btn').addEventListener('click', () => {
-        if (current_song == undefined) {
-            return
-        }
-
-        pauseSong()
-        let current_index = current_songs.indexOf(current_song)
-        let new_index = current_index - 1
-        if (new_index <= -1 || new_index >= current_songs.length) {
-            new_index = current_songs.length - 1
-        }
-
-        console.log(new_index)
-        console.log(current_songs)
-        current_duration = 0;
-        current_song = current_songs[new_index]
-
-        console.log(current_song)
-
-        let current_artist_names = current_song['artist'].split(',')
-        let current_artist_name = current_artist_names[current_artist_names.length - 1]
-        current_artist = artists.find(artist => artist['name'] === current_artist_name)
-        current_song_element = document.getElementById(`song-${new_index}`)
-
-
-        let old_id = hovered_song_id
-        hovered_song_id = new_index + 1
-
-        if (document.getElementById('browse-window').hidden === true) {
-            if (document.getElementById(`song-${old_id}`)) {
-                document.getElementById(`song-${old_id}`).closest('.song-item').style.background = "none"
-                document.getElementById(`song-${old_id}`).querySelector('.song-title-heading').style.color = "var(--primary-font-color)"
-            }
-            document.getElementById(`song-${hovered_song_id}`).closest('.song-item').style.backgroundColor = "#313131"
-            document.getElementById(`song-${hovered_song_id}`).closest('.song-item').querySelector('.song-title-heading').style.color = "#08c240"
-        }
-
-        loadSong(false)
+        playPrev()
     })
 
-    loadLibraries()
-
-    document.querySelectorAll('.library-card').forEach(lib => {
-        lib.addEventListener('click', e => {
-            document.getElementById('browse-window').hidden = true
-
-            if (document.getElementById('songs-window')) {
-                current_songs = []
-                document.getElementById('songs-window').remove()
-            }
-
-            if (selected_lib != -1) {
-                document.getElementById(`lib-${selected_lib}`).style.background = "None"
-                document.getElementById(`lib-${selected_lib}`).querySelector('.library-card-title').style.color = "var(--primary-font-color)"
-
-            }
-
-            let curr_lib = e.target.closest('.library-card')
-            selected_lib = curr_lib.id.slice(curr_lib.id.search('-') + 1, curr_lib.length)
-            curr_lib.style.backgroundColor = "#313131"
-            curr_lib.querySelector('.library-card-title').style.color = "#08c240"
-            console.log(selected_lib)
-            loadSongContent(curr_lib, `${curr_lib.querySelector('.library-card-caption').textContent.toLowerCase()}`, true)
-        })
+    document.querySelector('.search-icon').addEventListener('click', () => {
+        document.querySelector('.search-text').focus()
     })
 }
+
+// MAIN FUNCTION
+
+async function main() {
+    await loadOverlay()
+    loadMainBody()
+    loadDummyItems()
+
+    console.log("Loading...")
+    await loadData()
+    console.log("Loaded Data...")
+
+    loadLibraries()
+    loadBrowseWindow()
+    bindBasicUIEvents()
+}
+
 main()
