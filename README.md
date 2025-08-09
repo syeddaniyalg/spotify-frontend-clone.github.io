@@ -15,14 +15,14 @@ It is purely a **client-side application** intended for **educational and portfo
 ## 🚀 Features
 - 🎧 **Play / Pause / Next / Previous** controls  
 - 🔁 Loop toggle  
-- 📜 Dynamic playlist & song rendering from local JSON data  
+- 📜 Dynamic playlist & song rendering from local JSON data
 - ⏳ Seek bar with current/total duration display  
 - 🔊 Volume control slider  
 - 🖼 Album art & overlay animations  
 - 📂 Organized layout with navigation sidebar, main content, and footer player  
 - 📱 Responsive for both Desktop and Phone design (basic responsive support)
 - 🔍 However, the search bar is not functional and is implemented to fulfill the design requirements of its interface
-
+- ⚠️ Also, since the project is FRONTEND ONLY, its features are limited, e.g., it can't modify playlists and libraries. Therefore, sample library is loaded with pre-added songs.
 ---
 
 ## 🛠 Tech Stack
