@@ -21,6 +21,7 @@ It is purely a **client-side application** intended for **educational and portfo
 - 🖼 Album art & overlay animations  
 - 📂 Organized layout with navigation sidebar, main content, and footer player  
 - 📱 Responsive for both Desktop and Phone design (basic responsive support)
+- 🔍 However, the search bar is not functional and is implemented to fulfill the design requirements of its interface
 
 ---
 
