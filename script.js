@@ -511,6 +511,12 @@ function loadMainBody()
     </footer>`
 
     document.body.insertAdjacentHTML('afterbegin', body_element)
+
+    document.querySelector('nav .rightbar span').innerHTML = "Welcome " + `<span style="color: #08c240">${localStorage.getItem('spotify-name')}!</span>`
+    loadDummyItems()
+    loadLibraries()
+    loadBrowseWindow()
+    bindBasicUIEvents()
 }
 
 async function loadOverlay() {
@@ -528,8 +534,10 @@ async function loadOverlay() {
         document.querySelector('.overlay').classList.add('fade-overlay')
         await wait(1500)
         document.querySelector('.overlay').remove()
+        loadMainBody()
     }
     else {
+        console.log("came here")
         document.querySelector('.overlay').insertAdjacentHTML('beforeend', `<div class="input-box">
             <input type="text" class="user-name" id="user-name" placeholder="Enter your name">
             <button class="start-spotify-button" id="start-spotify-button">Start</button>
@@ -548,14 +556,12 @@ async function loadOverlay() {
             }
 
             localStorage.setItem('spotify-name', input_box.value)
-            document.querySelector('.input-box').classList.add('fade-overlay')
-            document.querySelector('nav .rightbar span').innerHTML = "Welcome " + `<span style="color: #08c240">${localStorage.getItem('spotify-name')}!</span>`
             document.querySelector('.overlay').remove()
-
+            loadMainBody()
         })
     }
 
-
+   
 }
 
 function loadDummyItems() {
@@ -718,17 +724,11 @@ function bindBasicUIEvents() {
 // MAIN FUNCTION
 
 async function main() {
-    await loadOverlay()
-    loadMainBody()
-    loadDummyItems()
+    loadOverlay()
 
     console.log("Loading...")
     await loadData()
     console.log("Loaded Data...")
-
-    loadLibraries()
-    loadBrowseWindow()
-    bindBasicUIEvents()
 }
 
 main()
